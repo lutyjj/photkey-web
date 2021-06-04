@@ -1,4 +1,4 @@
 class Photo < ApplicationRecord
-  belongs_to :category
+  has_one :category
   belongs_to :user
 end
