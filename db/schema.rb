@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_203749) do
+ActiveRecord::Schema.define(version: 2021_06_09_092445) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,9 @@ ActiveRecord::Schema.define(version: 2021_06_04_203749) do
     t.integer "like_limit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "token"
+    t.index ["login"], name: "index_users_on_login", unique: true
   end
 
   add_foreign_key "like_logs", "categories"
