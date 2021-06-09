@@ -1,8 +1,19 @@
 class SessionsController < ApplicationController
+  include Swagger::Docs::ImpotentMethods
+  skip_before_action :verify_authenticity_token
+  swagger_controller :session, "Authentication"
 
   def new
   end
-#
+
+  swagger_api :create do
+    summary "Gather a token"
+    param :form, "session[login]", :string, :required, "Students login"
+    param :form, "session[password]", :string, :required, "Students password"
+  end
+
+ 
+
 #  def create
 #    user = User.find_by(login: params[:session][:login])
 #    if user && user.authenticate(params[:session][:password])
@@ -20,7 +31,6 @@ class SessionsController < ApplicationController
 #    redirect_to users_url
 #  end
 
-  skip_before_action :verify_authenticity_token
 
   def create
     respond_to do |format|
@@ -47,6 +57,11 @@ class SessionsController < ApplicationController
     end
  end
 
+swagger_api :destroy do
+  summary "Invalidate a token"
+  param :header, "Token", :string, :required, "Authentication token"
+end
+
  def destroy
   respond_to do |format|
     format.html do
@@ -62,7 +77,4 @@ class SessionsController < ApplicationController
     end
   end
 end
-
-
-
 end

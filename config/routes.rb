@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
 
-  root to: 'static#index' # tego nie bylo 
+#  get 'sessions/new'
+  root to: 'static#index' 
+  
+
+  get '/api' => redirect('/swagger/dist/index.html?url=/api-docs.json')
   get    '/feed',    to: 'static#feed'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
