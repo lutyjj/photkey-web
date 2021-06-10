@@ -8,6 +8,10 @@
       "description": "Authentication"
     },
     {
+      "path": "/categories.{format}",
+      "description": "Categories"
+    },
+    {
       "path": "/users.{format}",
       "description": "Users"
     }

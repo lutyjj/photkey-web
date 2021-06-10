@@ -80,6 +80,11 @@ class UsersController < ApplicationController
     end
   end
 
+  swagger_api :destroy do
+    summary "Delete new user"
+    param :path, :id, :integer, :required, "Users id"
+  end
+
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy

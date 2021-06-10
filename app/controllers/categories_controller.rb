@@ -1,5 +1,13 @@
 class CategoriesController < ApplicationController
+  include Swagger::Docs::ImpotentMethods
+  skip_before_action :verify_authenticity_token
   before_action :set_category, only: %i[ show edit update destroy ]
+  swagger_controller :categories, 'Categories'
+
+  swagger_api :index do
+    summary 'Returns all categories'
+    notes 'Notes...'
+  end
 
   # GET /categories or /categories.json
   def index
@@ -9,7 +17,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1 or /categories/1.json
   def show
   end
-
+  
   # GET /categories/new
   def new
     @category = Category.new
@@ -17,6 +25,11 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
+  end
+
+  swagger_api :create do
+    summary "Create new category"
+    param :form, "category[name]", :string, :required, "Category name"
   end
 
   # POST /categories or /categories.json
@@ -34,6 +47,12 @@ class CategoriesController < ApplicationController
     end
   end
 
+  swagger_api :update do
+    summary "Update category"
+    param :path, :id, :integer, :required, "Category id"
+    param :form, "category[name]", :string, :required, "Category name"
+  end
+
   # PATCH/PUT /categories/1 or /categories/1.json
   def update
     respond_to do |format|
@@ -46,6 +65,12 @@ class CategoriesController < ApplicationController
       end
     end
   end
+
+  swagger_api :destroy do
+    summary "Delete category"
+    param :path, :id, :integer, :required, "Category id"
+  end
+
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
